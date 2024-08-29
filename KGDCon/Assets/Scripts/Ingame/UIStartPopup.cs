@@ -17,14 +17,19 @@ public class UIStartPopup : SingletonBehaviour<UIStartPopup>
         _startButton.onClick.AddListener(() =>
         {
             gameObject.SetActive(false);
-            UIPlayerBoard.Instance.Initialize();
             Time.timeScale = 1f;
         });
         _exitButton.onClick.AddListener(() => Application.Quit());
     }
 
+    private void Start()
+    {
+        Bind();
+    }
+
     public void Bind()
     {
         Time.timeScale = 0f;
+        UIPlayerBoard.Instance.Initialize();
     }
 }
