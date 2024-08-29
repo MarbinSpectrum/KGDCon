@@ -17,6 +17,7 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
     }
     public bool IsGameover => _lifeIndex >= 2 * _lives.Length;
     public bool IsFullLife => _lifeIndex == 0;
+    public float LifeCount => (2f * _lives.Length - _lifeIndex) / 2;
 
     [SerializeField] private Text _scoreText;
     [SerializeField] private Image[] _lives;
