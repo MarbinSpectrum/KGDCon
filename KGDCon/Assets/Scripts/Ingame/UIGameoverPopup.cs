@@ -22,7 +22,7 @@ public class UIGameoverPopup : SingletonBehaviour<UIGameoverPopup>
     {
         gameObject.SetActive(true);
         PlayerPrefs.SetInt("BestScore", score);
-        _bestScoreText.text = $"Best Score: {PlayerPrefs.GetInt("BestScore", 0).WithComma()}";
-        _scoreText.text = $"Score: {score.WithComma()}";
+        _bestScoreText.text = $"최고 점수: {PlayerPrefs.GetInt("BestScore", 0).WithComma()}";
+        _scoreText.text = $"현재 점수: {score.WithComma()}";
     }
 }

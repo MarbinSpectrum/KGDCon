@@ -33,7 +33,7 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
     }
 
     private void UpdateScore(int newScore) =>
-        _scoreText.text = $"Score: {newScore:#,##0}";
+        _scoreText.text = $"Á¡¼ö: {newScore:#,##0}";
 
     public void IncreaseHalfLife()
     {
