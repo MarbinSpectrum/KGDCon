@@ -17,7 +17,7 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
     }
     public bool IsGameover => _lifeIndex >= 2 * _lives.Length;
 
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private Text _scoreText;
     [SerializeField] private Image[] _lives;
 
     private int _score;
