@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
+    SerializedFormat: 0
     SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
@@ -107,3 +107,4 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   eItem: 4
+  score: 500

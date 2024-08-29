@@ -11,7 +11,8 @@ public class TrashItem : GameItem
     public override void CreateObj(int idx)
     {
         pos = idx;
-
+        isDie = false;
+        hit = false;
         int rIdx = Random.Range(0, imgs.Count);
         Sprite sprite = imgs[rIdx];
         spriteRenderer.sprite = sprite;
@@ -19,6 +20,15 @@ public class TrashItem : GameItem
 
     public override void GetItem()
     {
+        if (hit)
+            return;
+        hit = true;
+
         DestroyObj();
+
+        GameSystem gameSystem = GameSystem.Instance;
+        if (gameSystem == null)
+            return;
+        gameSystem.RemoveGround();
     }
 }

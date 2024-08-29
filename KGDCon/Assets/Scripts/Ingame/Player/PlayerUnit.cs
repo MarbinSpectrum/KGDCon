@@ -14,6 +14,9 @@ public class PlayerUnit : SerializedMonoBehaviour
 
     private void Update()
     {
+        GameSystem gameSystem = GameSystem.Instance;
+        if (gameSystem == null || gameSystem.run == false)
+            return;
         if (isDie)
             return;
         MoveUpdate();
@@ -37,7 +40,8 @@ public class PlayerUnit : SerializedMonoBehaviour
         if (loopGround.IsDie(transform.position))
         {
             isDie = true;
-            gameObject.SetActive(false);
+            UIGameoverPopup uIGameoverPopup = UIGameoverPopup.Instance;
+            uIGameoverPopup.Bind(0);
         }
     }
 
@@ -52,7 +56,8 @@ public class PlayerUnit : SerializedMonoBehaviour
 
             if (gameItem.eItem == EItem.Holl_2)
             {
-                if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis || Vector3.Distance(transform.position + new Vector3(1, 0, 0), gameItem.transform.position) < checkDis)
+                if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis || 
+                    Vector3.Distance(transform.position + new Vector3(1, 0, 0), gameItem.transform.position) < checkDis)
                 {
                     gameItem.GetItem();
                 }

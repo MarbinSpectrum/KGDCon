@@ -19,6 +19,7 @@ public class UIStartPopup : SingletonBehaviour<UIStartPopup>
             gameObject.SetActive(false);
             UIPlayerBoard.Instance.Initialize();
             Time.timeScale = 1f;
+            GameSystem.Instance.run = true;
         });
         _exitButton.onClick.AddListener(() => Application.Quit());
     }

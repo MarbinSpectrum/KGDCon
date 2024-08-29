@@ -4,14 +4,24 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 
-public class GameSystem : SerializedMonoBehaviour
+public class GameSystem : SingletonBehaviour<GameSystem>
 {
     private Dictionary<EItem, float> spawnCheckTime = new Dictionary<EItem, float>();
     private HashSet<int> hasSlot = new HashSet<int>();
     [SerializeField] private LoopGround loopGround;
 
+    [SerializeField] private float trashTime    = 0;
+    [SerializeField] private float hollTime1    = 0;
+    [SerializeField] private float hollTime2    = 0;
+    [SerializeField] private float friendTime   = 0;
+    public bool run;
+    private bool groundFlag = false;
+
     private void Update()
     {
+        if (run == false)
+            return;
+
         ItemMng itemMng = ItemMng.Instance;
 
         hasSlot.Clear();
@@ -68,21 +78,21 @@ public class GameSystem : SerializedMonoBehaviour
         switch (item)
         {
             case EItem.Trash:
-                if (spawnCheckTime[item] > 10)
+                if (spawnCheckTime[item] > trashTime)
                 {
                     spawnCheckTime[item] = 0;
                     return true;
                 }
                 break;
             case EItem.Holl_1:
-                if (spawnCheckTime[item] > 7 && lineCnt <= 2)
+                if (spawnCheckTime[item] > hollTime1 && lineCnt <= 2)
                 {
                     spawnCheckTime[item] = 0;
                     return true;
                 }
                 break;
             case EItem.Holl_2:
-                if (spawnCheckTime[item] > 10 && lineCnt >= 3)
+                if (spawnCheckTime[item] > hollTime2 && lineCnt >= 3)
                 {
                     spawnCheckTime[item] = 0;
                     return true;
@@ -95,7 +105,7 @@ public class GameSystem : SerializedMonoBehaviour
                 }
                 break;
             case EItem.friend:
-                if (spawnCheckTime[item] > 15)
+                if (spawnCheckTime[item] > friendTime)
                 {
                     spawnCheckTime[item] = 0;
                     return true;
@@ -113,6 +123,7 @@ public class GameSystem : SerializedMonoBehaviour
 
     private int GetCreatePos(int width)
     {
+        //생성위치 반환
         List<int> posList = new List<int>();
         for(int i = 0; i < loopGround.isBreak.Count; i++)
         {
@@ -132,6 +143,7 @@ public class GameSystem : SerializedMonoBehaviour
 
     private bool CanSet(int idx, int width)
     {
+        //해당 위치에 공간을 할당할 수 잇는지 고려
         for(int i = idx; i < idx + width; i++)
         {
             if (loopGround.isBreak.Count <= i)
@@ -140,5 +152,14 @@ public class GameSystem : SerializedMonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    public void RemoveGround()
+    {
+        if (groundFlag)
+            loopGround.BreakRight();
+        else
+            loopGround.BreakLeft();
+        groundFlag = !groundFlag;
     }
 }

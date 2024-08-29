@@ -8,7 +8,7 @@ public class GameItem : SerializedMonoBehaviour
 {
     [SerializeField] public EItem eItem;
     public int pos { protected set; get; } = -1;
-
+    protected bool hit = false;
     public bool isDie { protected set; get; } = false;
 
     protected virtual void Update()
@@ -22,11 +22,15 @@ public class GameItem : SerializedMonoBehaviour
     {
         pos = idx;
         isDie = false;
+        hit = false;
 
     }
 
     public virtual void GetItem()
     {
+        if (hit)
+            return;
+        hit = true;
         DestroyObj();
     }
 
