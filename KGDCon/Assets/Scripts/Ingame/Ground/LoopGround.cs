@@ -35,6 +35,7 @@ public class LoopGround : SerializedMonoBehaviour
         Init();
     }
 
+
     private void Init()
     {
         for(int i = 0; i < GROUND_CNT; i++)
