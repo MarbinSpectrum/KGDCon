@@ -8,7 +8,7 @@ public class GameItem : SerializedMonoBehaviour
 {
     [SerializeField] public EItem eItem;
     public int pos { protected set; get; } = -1;
-    protected bool hit = false;
+    public bool hit { protected set; get; } = false;
     public bool isDie { protected set; get; } = false;
 
     protected virtual void Update()

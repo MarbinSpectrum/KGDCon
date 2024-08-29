@@ -14,9 +14,6 @@ public class FriendItem : GameItem
 
         DestroyObj();
 
-        UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
-        if (uIPlayerBoard == null)
-            return;
-        uIPlayerBoard.Score += score;
+        GameSystem.Instance.AddScore(score);
     }
 }

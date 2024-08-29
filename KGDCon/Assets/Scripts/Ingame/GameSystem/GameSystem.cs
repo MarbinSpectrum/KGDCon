@@ -14,6 +14,10 @@ public class GameSystem : SingletonBehaviour<GameSystem>
     [SerializeField] private float hollTime1    = 0;
     [SerializeField] private float hollTime2    = 0;
     [SerializeField] private float friendTime   = 0;
+    [SerializeField] private int humanPoint = 0;
+    [SerializeField] private int hearthPoint = 0;
+    private int humanPointFlag = 0;
+    private int hearthPointFlag = 0;
     public bool run;
     private bool groundFlag = false;
 
@@ -63,8 +67,6 @@ public class GameSystem : SingletonBehaviour<GameSystem>
     {
         //오브젝트마다 생성 조건
         int lineCnt = 0;
-        int playerPoint = 0;
-        int playerLife = 0;
         for(int i = 0; i < loopGround.isBreak.Count; i++)
         {
             if (loopGround.isBreak[i])
@@ -99,8 +101,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
                 }
                 break;
             case EItem.Human:
-                if (playerPoint > 2000)
+                if (humanPointFlag >= humanPoint)
                 {
+                    humanPointFlag = 0;
                     return true;
                 }
                 break;
@@ -112,8 +115,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
                 }
                 break;
             case EItem.Hearth:
-                if (playerLife > 3)
+                if (hearthPointFlag >= hearthPoint && UIPlayerBoard.Instance.IsFullLife == false)
                 {
+                    hearthPointFlag = 0;
                     return true;
                 }
                 break;
@@ -161,5 +165,15 @@ public class GameSystem : SingletonBehaviour<GameSystem>
         else
             loopGround.BreakLeft();
         groundFlag = !groundFlag;
+    }
+
+    public void AddScore(int score)
+    {
+        UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
+        if (uIPlayerBoard == null)
+            return;
+        uIPlayerBoard.Score += score;
+        humanPointFlag += score;
+        hearthPointFlag += score;
     }
 }

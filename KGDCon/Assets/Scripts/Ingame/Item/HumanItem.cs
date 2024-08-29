@@ -16,5 +16,9 @@ public class HumanItem : GameItem
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.DecreaseLife();
+        if(uIPlayerBoard.IsGameover)
+        {
+            UIGameoverPopup.Instance.Bind(uIPlayerBoard.Score);
+        }
     }
 }

@@ -10,6 +10,8 @@ public class PlayerUnit : SerializedMonoBehaviour
     /** 판정 범위 값 **/
     [SerializeField] private float      checkDis;
     [SerializeField] private LoopGround loopGround;
+    [SerializeField] private SimpleColorShader simpleColor;
+
     private bool isDie = false;
 
     private void Update()
@@ -53,19 +55,38 @@ public class PlayerUnit : SerializedMonoBehaviour
             GameItem gameItem = itemMng.gameItem[i];
             if (gameItem.isDie)
                 continue;
-
+            if (gameItem.hit)
+                continue;
             if (gameItem.eItem == EItem.Holl_2)
             {
                 if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis || 
                     Vector3.Distance(transform.position + new Vector3(1, 0, 0), gameItem.transform.position) < checkDis)
                 {
                     gameItem.GetItem();
+                    HitEvent();
                 }
             }
             else if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis)
             {
                 gameItem.GetItem();
+                if (gameItem.eItem == EItem.Human)
+                    HitEvent();
             }
         }
+    }
+
+    public void HitEvent()
+    {
+        IEnumerator run()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                simpleColor.Set_Shader(1);
+                yield return new WaitForSeconds(0.1f);
+                simpleColor.Set_Shader(0);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        StartCoroutine(run());
     }
 }
