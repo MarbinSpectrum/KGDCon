@@ -17,7 +17,7 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
     }
     public bool IsGameover => _lifeIndex >= 2 * _lives.Length;
 
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private Text _scoreText;
     [SerializeField] private Image[] _lives;
 
     private int _score;
@@ -33,7 +33,7 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
     }
 
     private void UpdateScore(int newScore) =>
-        _scoreText.text = $"Score: {newScore:#,##0}";
+        _scoreText.text = $"Á¡¼ö: {newScore:#,##0}";
 
     public void IncreaseHalfLife()
     {
