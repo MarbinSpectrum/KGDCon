@@ -43,7 +43,9 @@ public class GameItem : SerializedMonoBehaviour
 
     protected virtual float ItemSpeed()
     {
-        return 3f;
+        float lerpValue = Mathf.Min(1, GameSystem.Instance.time / 100f);
+        float addSpeed = Mathf.Lerp(0, 10, lerpValue);
+        return 3f + addSpeed;
     }
 
     public virtual void DestroyObj()

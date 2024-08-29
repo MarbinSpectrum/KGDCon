@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class PlayerUnit : SerializedMonoBehaviour
+public class PlayerUnit : SingletonBehaviour<PlayerUnit>
 {
     /** 유닛 이동 속도 **/
     [SerializeField] private float      speed;
@@ -12,6 +12,7 @@ public class PlayerUnit : SerializedMonoBehaviour
     [SerializeField] private LoopGround loopGround;
     [SerializeField] private SimpleColorShader simpleColor;
     [SerializeField] private float blinkDelay = 0.1f;
+    [SerializeField] private GameObject iceBreak;
     private bool isDie = false;
 
     private void Update()
@@ -60,17 +61,14 @@ public class PlayerUnit : SerializedMonoBehaviour
             if (gameItem.eItem == EItem.Holl_2)
             {
                 if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis || 
-                    Vector3.Distance(transform.position + new Vector3(1, 0, 0), gameItem.transform.position) < checkDis)
+                    Vector3.Distance(transform.position, gameItem.transform.position + new Vector3(1, 0, 0)) < checkDis)
                 {
                     gameItem.GetItem();
-                    HitEvent();
                 }
             }
             else if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis)
             {
                 gameItem.GetItem();
-                if (gameItem.eItem == EItem.Human)
-                    HitEvent();
             }
         }
     }
@@ -79,13 +77,24 @@ public class PlayerUnit : SerializedMonoBehaviour
     {
         IEnumerator run()
         {
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 3; i++)
             {
                 simpleColor.Set_Shader(1);
                 yield return new WaitForSeconds(blinkDelay);
                 simpleColor.Set_Shader(0);
                 yield return new WaitForSeconds(blinkDelay);
             }
+        }
+        StartCoroutine(run());
+    }
+
+    public void IceBreakEvent()
+    {
+        IEnumerator run()
+        {
+            iceBreak.gameObject.SetActive(true);
+            yield return new WaitForSeconds(3);
+            iceBreak.gameObject.SetActive(false);
         }
         StartCoroutine(run());
     }

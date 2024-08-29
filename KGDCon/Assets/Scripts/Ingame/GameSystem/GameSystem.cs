@@ -18,8 +18,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
     [SerializeField] private int hearthPoint = 0;
     private int humanPointFlag = 0;
     private int hearthPointFlag = 0;
-    public bool run;
+    [System.NonSerialized] public bool run;
     private bool groundFlag = false;
+    public float time { get; private set; } = 0;
 
     private void Update()
     {
@@ -27,6 +28,7 @@ public class GameSystem : SingletonBehaviour<GameSystem>
             return;
 
         ItemMng itemMng = ItemMng.Instance;
+        time += Time.deltaTime;
 
         hasSlot.Clear();
         for (EItem item = EItem.Holl_1; item < EItem.MAX; item++)

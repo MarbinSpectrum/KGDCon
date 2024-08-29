@@ -30,5 +30,6 @@ public class TrashItem : GameItem
         if (gameSystem == null)
             return;
         gameSystem.RemoveGround();
+        PlayerUnit.Instance.IceBreakEvent();
     }
 }

@@ -16,7 +16,7 @@ public class HumanItem : GameItem
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.DecreaseLife();
-
+        PlayerUnit.Instance.HitEvent();
         Sky.Instance.UpdateSky();
         if (uIPlayerBoard.IsGameover)
         {

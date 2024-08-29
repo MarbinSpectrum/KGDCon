@@ -14,7 +14,7 @@ public class HollItem : GameItem
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.DecreaseHalfLife();
-
+        PlayerUnit.Instance.HitEvent();
         Sky.Instance.UpdateSky();
         if (uIPlayerBoard.IsGameover)
         {
