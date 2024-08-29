@@ -35,24 +35,6 @@ public class LoopGround : SerializedMonoBehaviour
         Init();
     }
 
-    float testFloat = 0;
-    bool testFlag = false;
-
-    private void Update()
-    {
-        testFloat += Time.deltaTime;
-        if(testFloat > 5)
-        {
-            testFloat = 0;
-            if (testFlag)
-                BreakLeft();
-            else
-                BreakRight();
-            testFlag = !testFlag;
-
-        }
-    }
-
     private void Init()
     {
         for(int i = 0; i < GROUND_CNT; i++)
