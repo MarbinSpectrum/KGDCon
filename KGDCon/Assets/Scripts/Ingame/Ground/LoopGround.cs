@@ -58,6 +58,7 @@ public class LoopGround : SerializedMonoBehaviour
             if (isBreak[i] == true)
                 continue;
             isBreak[i] = true;
+            ItemMng.Instance.RemoveAllItem(i);
             headX++;
             break;
         }
@@ -74,6 +75,8 @@ public class LoopGround : SerializedMonoBehaviour
             if (isBreak[i] == true)
                 continue;
             isBreak[i] = true;
+            ItemMng.Instance.RemoveAllItem(i);
+
             tailX--;
             break;
         }

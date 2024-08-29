@@ -41,4 +41,15 @@ public class ItemMng : SerializedMonoBehaviour
         itemQueue[pItem].Enqueue(gameItem);
         gameItem.gameObject.SetActive(false);
     }
+
+    public void RemoveAllItem(int pos)
+    {
+        for(int i = 0; i < gameItem.Count; i++)
+        {
+            if(gameItem[i].eItem == EItem.Holl_2 && (gameItem[i].pos == pos || gameItem[i].pos == pos-1))
+                gameItem[i].DestroyObj();
+            else if (gameItem[i].pos == pos)
+                gameItem[i].DestroyObj();
+        }
+    }
 }
