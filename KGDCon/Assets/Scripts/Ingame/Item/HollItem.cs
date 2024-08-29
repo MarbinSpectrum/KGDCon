@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HollItem : GameItem
 {
-    protected override void GetItem()
+    public override void GetItem()
     {
-        DestroyObj();
+        
     }
 }

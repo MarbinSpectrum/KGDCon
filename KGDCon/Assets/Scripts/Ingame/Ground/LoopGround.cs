@@ -21,7 +21,7 @@ public class LoopGround : SerializedMonoBehaviour
 
     /** ¶¥ °´Ã¼ °ü¸®¿ë ¸®½ºÆ® **/
     private List<GroundObj>             groundList  = new List<GroundObj>();
-    private List<bool>                  isBreak     = new List<bool>();
+    public List<bool>                   isBreak { get; private set; } = new List<bool>();
 
     /** »ý¼ºµÇ´Â ¶¥ °¹¼ö **/
     private const int GROUND_CNT    = 50;

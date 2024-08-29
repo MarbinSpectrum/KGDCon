@@ -5,7 +5,10 @@ using Sirenix.OdinInspector;
 
 public class PlayerUnit : SerializedMonoBehaviour
 {
-    [SerializeField] private float speed;
+    /** 유닛 이동 속도 **/
+    [SerializeField] private float      speed;
+    /** 판정 범위 값 **/
+    [SerializeField] private float      checkDis;
     [SerializeField] private LoopGround loopGround;
     private bool isDie = false;
 
@@ -15,6 +18,7 @@ public class PlayerUnit : SerializedMonoBehaviour
             return;
         MoveUpdate();
         DieCheckUpdate();
+        ItemCheckUpdate();
     }
 
     private void MoveUpdate()
@@ -34,6 +38,29 @@ public class PlayerUnit : SerializedMonoBehaviour
         {
             isDie = true;
             gameObject.SetActive(false);
+        }
+    }
+
+    public void ItemCheckUpdate()
+    {
+        ItemMng itemMng = ItemMng.Instance;
+        for(int i = 0; i < itemMng.gameItem.Count; i++)
+        {
+            GameItem gameItem = itemMng.gameItem[i];
+            if (gameItem.isDie)
+                continue;
+
+            if (gameItem.eItem == EItem.Holl_2)
+            {
+                if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis || Vector3.Distance(transform.position + new Vector3(1, 0, 0), gameItem.transform.position) < checkDis)
+                {
+                    gameItem.GetItem();
+                }
+            }
+            else if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis)
+            {
+                gameItem.GetItem();
+            }
         }
     }
 }

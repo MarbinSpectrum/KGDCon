@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FriendItem : GameItem
 {
-    protected override void GetItem()
+    public override void GetItem()
     {
         DestroyObj();
     }

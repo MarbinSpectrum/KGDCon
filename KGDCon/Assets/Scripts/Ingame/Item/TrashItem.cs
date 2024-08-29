@@ -8,7 +8,7 @@ public class TrashItem : GameItem
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected List<Sprite> imgs = new List<Sprite>();
 
-    protected override void CreateObj(int idx)
+    public override void CreateObj(int idx)
     {
         pos = idx;
 
@@ -17,7 +17,7 @@ public class TrashItem : GameItem
         spriteRenderer.sprite = sprite;
     }
 
-    protected override void GetItem()
+    public override void GetItem()
     {
         DestroyObj();
     }

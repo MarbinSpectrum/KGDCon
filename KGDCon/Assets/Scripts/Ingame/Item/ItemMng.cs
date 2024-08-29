@@ -7,6 +7,7 @@ public class ItemMng : SerializedMonoBehaviour
 {
     private Dictionary<EItem, Queue<GameItem>> itemQueue = new Dictionary<EItem, Queue<GameItem>>();
     [SerializeField] private Dictionary<EItem, GameItem> item = new Dictionary<EItem, GameItem>();
+    public List<GameItem> gameItem { private set; get; } = new List<GameItem>();
 
     public static ItemMng Instance => _instance;
     private static ItemMng _instance;
@@ -28,6 +29,8 @@ public class ItemMng : SerializedMonoBehaviour
         }
 
         GameItem newItem = Instantiate(item[pItem]);
+        gameItem.Add(newItem);
+
         return newItem;
     }
 

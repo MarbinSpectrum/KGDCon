@@ -1,16 +1,18 @@
 public enum EItem
 {
     /** ºùÇÏ ±¸¸Û 1(1Ä­) **/
-    Holl_1      = 100,
+    Holl_1      = 0,
     /** ºùÇÏ ±¸¸Û 2(2°P) **/
-    Holl_2      = 101,
+    Holl_2      = 1,
 
     /** ÀÎ°£ **/
-    Human   = 200,
+    Human   = 2,
     /** ¾²·¹±â **/
-    Trash   = 300,
+    Trash   = 3,
     /** Ä£±¸ ÆØ±Ï **/
-    friend  = 400,
+    friend  = 4,
     /** ÇÏÆ® **/
-    Hearth  = 500,
+    Hearth  = 5,
+
+    MAX
 }

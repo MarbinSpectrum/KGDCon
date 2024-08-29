@@ -6,10 +6,10 @@ using Sirenix.OdinInspector;
 
 public class GameItem : SerializedMonoBehaviour
 {
-    [SerializeField] protected EItem eItem;
-    protected int pos = -1;
+    [SerializeField] public EItem eItem;
+    public int pos { protected set; get; } = -1;
 
-    protected bool isDie = false;
+    public bool isDie { protected set; get; } = false;
 
     protected virtual void Update()
     {
@@ -18,12 +18,14 @@ public class GameItem : SerializedMonoBehaviour
         MoveDown();
     }
 
-    protected virtual void CreateObj(int idx)
+    public virtual void CreateObj(int idx)
     {
         pos = idx;
+        isDie = false;
+
     }
 
-    protected virtual void GetItem()
+    public virtual void GetItem()
     {
         DestroyObj();
     }
@@ -37,10 +39,10 @@ public class GameItem : SerializedMonoBehaviour
 
     protected virtual float ItemSpeed()
     {
-        return 1f;
+        return 3f;
     }
 
-    protected virtual void DestroyObj()
+    public virtual void DestroyObj()
     {
         isDie = true;
         ItemMng itemMng = ItemMng.Instance;
