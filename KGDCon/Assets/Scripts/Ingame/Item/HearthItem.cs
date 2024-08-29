@@ -16,5 +16,6 @@ public class HearthItem : GameItem
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.IncreaseHalfLife();
+        Sky.Instance.UpdateSky();
     }
 }

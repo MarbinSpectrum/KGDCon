@@ -14,6 +14,8 @@ public class HollItem : GameItem
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.DecreaseHalfLife();
+
+        Sky.Instance.UpdateSky();
         if (uIPlayerBoard.IsGameover)
         {
             UIGameoverPopup.Instance.Bind(uIPlayerBoard.Score);

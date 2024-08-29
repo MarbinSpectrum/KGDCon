@@ -16,3 +16,10 @@ public enum EItem
 
     MAX
 }
+
+public enum ESky
+{
+    Sky0,
+    Sky1,
+    Sky2,
+}

@@ -11,7 +11,7 @@ public class PlayerUnit : SerializedMonoBehaviour
     [SerializeField] private float      checkDis;
     [SerializeField] private LoopGround loopGround;
     [SerializeField] private SimpleColorShader simpleColor;
-
+    [SerializeField] private float blinkDelay = 0.1f;
     private bool isDie = false;
 
     private void Update()
@@ -82,9 +82,9 @@ public class PlayerUnit : SerializedMonoBehaviour
             for (int i = 0; i < 7; i++)
             {
                 simpleColor.Set_Shader(1);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(blinkDelay);
                 simpleColor.Set_Shader(0);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(blinkDelay);
             }
         }
         StartCoroutine(run());
