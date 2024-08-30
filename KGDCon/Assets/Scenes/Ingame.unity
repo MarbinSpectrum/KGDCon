@@ -1297,6 +1297,7 @@ GameObject:
   - component: {fileID: 6555911587884447056}
   - component: {fileID: 6555911587884447062}
   - component: {fileID: 6555911587884447063}
+  - component: {fileID: 6555911587884447064}
   - component: {fileID: 6555911587884447061}
   m_Layer: 5
   m_Name: UIStartPopup
@@ -1357,6 +1358,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &6555911587884447064
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6555911587884447057}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &6555911588232636432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1854,6 +1867,7 @@ GameObject:
   - component: {fileID: 7897474326238203460}
   - component: {fileID: 7897474326238203461}
   - component: {fileID: 7897474326238203462}
+  - component: {fileID: 7897474326238203464}
   - component: {fileID: 7897474326238203463}
   m_Layer: 5
   m_Name: UIGameoverPopup
@@ -1861,7 +1875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7897474326238203459
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1959,6 +1973,19 @@ MonoBehaviour:
   _bestScoreText: {fileID: 7897474327213738255}
   _scoreText: {fileID: 7897474325827789331}
   _pressAnyKeyText: {fileID: 7897474326977404240}
+  _canvasGroup: {fileID: 7897474326238203464}
+--- !u!225 &7897474326238203464
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897474326238203456}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &7897474326567022972
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2210,6 +2237,7 @@ GameObject:
   - component: {fileID: 9082331032119917021}
   - component: {fileID: 9082331032119917023}
   - component: {fileID: 9082331032119917020}
+  - component: {fileID: 9082331032119917024}
   - component: {fileID: 9082331032119917022}
   m_Layer: 5
   m_Name: UIPlayerBoard
@@ -2294,6 +2322,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9082331032119917018}
   m_CullTransparentMesh: 1
+--- !u!225 &9082331032119917024
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9082331032119917018}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &9082331032798492728
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7,12 +7,15 @@ public class UIStartPopup : SingletonBehaviour<UIStartPopup>
 {
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _exitButton;
+    private CanvasGroup _canvasGroup;
 
     protected override void Awake()
     {
         Time.timeScale = 0f;
 
         base.Awake();
+
+        _canvasGroup = GetComponent<CanvasGroup>();
 
         _startButton.onClick.AddListener(() =>
         {
@@ -33,4 +36,7 @@ public class UIStartPopup : SingletonBehaviour<UIStartPopup>
         Time.timeScale = 0f;
         UIPlayerBoard.Instance.Initialize();
     }
+
+    public void Show() => _canvasGroup.alpha = 1.0f;
+    public void Hide() => _canvasGroup.alpha = 0f;
 }
