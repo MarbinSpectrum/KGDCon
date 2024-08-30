@@ -9,7 +9,6 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
     [SerializeField] private float      speed;
     /** 판정 범위 값 **/
     [SerializeField] private float      checkDis;
-    [SerializeField] private LoopGround loopGround;
     [SerializeField] private SimpleColorShader simpleColor;
     [SerializeField] private float blinkDelay = 0.1f;
     [SerializeField] private GameObject iceBreak;
@@ -33,18 +32,21 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
         if (axisValue == 0)
             return;
 
-        Vector3 movePos = transform.position + new Vector3(1, 0, 0) * axisValue * speed * Time.deltaTime;
-        if (loopGround.IsCanMove(movePos))
+        Vector3 movePos = transform.position + new Vector3(1, 0, 0) * axisValue * speed * GameSystem.Instance.objScale * Time.deltaTime;
+        if (LoopGround.Instance.IsCanMove(movePos))
             transform.position = movePos;
     }
 
     private void DieCheckUpdate()
     {
-        if (loopGround.IsDie(transform.position))
+        if (LoopGround.Instance.IsDie(transform.position))
         {
             isDie = true;
             UIGameoverPopup uIGameoverPopup = UIGameoverPopup.Instance;
-            uIGameoverPopup.Bind(0);
+            UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
+
+            uIGameoverPopup.Bind(uIPlayerBoard.Score);
+            UIGameoverPopup.Instance.Show();
         }
     }
 
@@ -75,17 +77,22 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
 
     public void HitEvent()
     {
-        IEnumerator run()
+        if (UIPlayerBoard.Instance.LifeCount == 0)
+            isDie = true;
+        else
         {
-            for (int i = 0; i < 3; i++)
+            IEnumerator run()
             {
-                simpleColor.Set_Shader(1);
-                yield return new WaitForSeconds(blinkDelay);
-                simpleColor.Set_Shader(0);
-                yield return new WaitForSeconds(blinkDelay);
+                for (int i = 0; i < 3; i++)
+                {
+                    simpleColor.Set_Shader(1);
+                    yield return new WaitForSeconds(blinkDelay);
+                    simpleColor.Set_Shader(0);
+                    yield return new WaitForSeconds(blinkDelay);
+                }
             }
+            StartCoroutine(run());
         }
-        StartCoroutine(run());
     }
 
     public void IceBreakEvent()

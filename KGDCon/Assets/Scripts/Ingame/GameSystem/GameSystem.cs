@@ -7,20 +7,38 @@ using Sirenix.OdinInspector;
 public class GameSystem : SingletonBehaviour<GameSystem>
 {
     private Dictionary<EItem, float> spawnCheckTime = new Dictionary<EItem, float>();
-    private HashSet<int> hasSlot = new HashSet<int>();
-    [SerializeField] private LoopGround loopGround;
 
-    [SerializeField] private float trashTime    = 0;
-    [SerializeField] private float hollTime1    = 0;
-    [SerializeField] private float hollTime2    = 0;
-    [SerializeField] private float friendTime   = 0;
+    /** 쓰레기가 나오는 주기 **/
+    [SerializeField] private float trashTime = 0;
+    /** 구멍이 나오는 주기 **/
+    [SerializeField] private float hollTime1 = 0;
+    /** 2칸 짜리 구멍이 나오는 주기 **/
+    [SerializeField] private float hollTime2 = 0;
+    /** 체력이 나오는 점수 **/
+    [SerializeField] private float friendTime = 0;
+    /** 인간이 나오는 점수 **/
     [SerializeField] private int humanPoint = 0;
+    /** 체력이 나오는 점수 **/
     [SerializeField] private int hearthPoint = 0;
+
+    /** 오브젝트 이동 속도 **/
+    [SerializeField] public float itemSpeed = 0;
+    /** 오브젝트 최대 이동 속도 **/
+    [SerializeField] public float itemmMaxSpeed = 0;
+    /** 오브젝트 최대 이동 속도 **/
+    [SerializeField] public int timeScore = 0;
+
+    [SerializeField] public float objScale = 1f;
+
+
     private int humanPointFlag = 0;
     private int hearthPointFlag = 0;
     [System.NonSerialized] public bool run;
+
     private bool groundFlag = false;
     public float time { get; private set; } = 0;
+
+    private float pointTime = 0;
 
     private void Update()
     {
@@ -30,7 +48,13 @@ public class GameSystem : SingletonBehaviour<GameSystem>
         ItemMng itemMng = ItemMng.Instance;
         time += Time.deltaTime;
 
-        hasSlot.Clear();
+        pointTime += Time.deltaTime;
+        if (pointTime >= 1)
+        {
+            pointTime = 0;
+            AddScore(timeScore);
+        }
+
         for (EItem item = EItem.Holl_1; item < EItem.MAX; item++)
         {
             if (CheckSpawnCondi(item) == false)
@@ -46,8 +70,6 @@ public class GameSystem : SingletonBehaviour<GameSystem>
                         getPos = GetCreatePos(2);
                         if (getPos == -1)
                             continue;
-                        hasSlot.Add(getPos);
-                        hasSlot.Add(getPos + 1);
                     }
                     break;
                 default:
@@ -55,13 +77,13 @@ public class GameSystem : SingletonBehaviour<GameSystem>
                         getPos = GetCreatePos(1);
                         if (getPos == -1)
                             continue;
-                        hasSlot.Add(getPos);
                     }
                     break;
             }
             gameItem = itemMng.CreateItem(item);
             gameItem.CreateObj(getPos);
-            gameItem.transform.position = new Vector3(-4.5f + getPos, 0.01f, 15);
+            gameItem.transform.position = new Vector3(LoopGround.Instance.headX + getPos * objScale, 0.01f, 15);
+            gameItem.transform.localScale = Vector3.one * objScale;
         }
     }
 
@@ -69,9 +91,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
     {
         //오브젝트마다 생성 조건
         int lineCnt = 0;
-        for(int i = 0; i < loopGround.isBreak.Count; i++)
+        for(int i = 0; i < LoopGround.Instance.isBreak.Count; i++)
         {
-            if (loopGround.isBreak[i])
+            if (LoopGround.Instance.isBreak[i])
                 continue;
             lineCnt++;
         }
@@ -131,11 +153,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
     {
         //생성위치 반환
         List<int> posList = new List<int>();
-        for(int i = 0; i < loopGround.isBreak.Count; i++)
+        for(int i = 0; i < LoopGround.Instance.isBreak.Count; i++)
         {
             if (CanSet(i, width) == false)
-                continue;
-            if (hasSlot.Contains(i))
                 continue;
             posList.Add(i);
         }
@@ -152,9 +172,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
         //해당 위치에 공간을 할당할 수 잇는지 고려
         for(int i = idx; i < idx + width; i++)
         {
-            if (loopGround.isBreak.Count <= i)
+            if (LoopGround.Instance.isBreak.Count <= i)
                 return false;
-            if (loopGround.isBreak[i])
+            if (LoopGround.Instance.isBreak[i])
                 return false;
         }
         return true;
@@ -164,9 +184,9 @@ public class GameSystem : SingletonBehaviour<GameSystem>
     {
         Sfx.Instance.Play(ESfx.OnRemoveGround);
         if (groundFlag)
-            loopGround.BreakRight();
+            LoopGround.Instance.BreakRight();
         else
-            loopGround.BreakLeft();
+            LoopGround.Instance.BreakLeft();
         groundFlag = !groundFlag;
     }
 
