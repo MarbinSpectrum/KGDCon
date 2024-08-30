@@ -18,6 +18,7 @@ public class HumanItem : GameItem
             return;
         uIPlayerBoard.DecreaseLife();
         PlayerUnit.Instance.HitEvent();
+        Debug.Log("¿Œ∞£");
         Sky.Instance.UpdateSky();
         if (uIPlayerBoard.IsGameover)
         {

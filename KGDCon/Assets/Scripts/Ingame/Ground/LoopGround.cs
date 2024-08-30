@@ -4,14 +4,12 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 
-public class LoopGround : SerializedMonoBehaviour
+public class LoopGround : SingletonBehaviour<LoopGround>
 {
     /** ¹Ù´Ú »ý¼º ÁöÁ¡ **/
     [SerializeField] private Transform  createPos;
     /** ¹Ù´Ú °´Ã¼ **/
     [SerializeField] private GroundObj  groundObj;
-    /** ¶¥ °£°Ý **/
-    [SerializeField] private float      groundDis;
     /** ¶¥ °£°Ý **/
     [SerializeField] private float      groundSpeed;
     /** ¶¥ °´Ã¼ ±×·ì **/
@@ -27,10 +25,13 @@ public class LoopGround : SerializedMonoBehaviour
     private const int GROUND_CNT    = 50;
     private const int GROUND_WIDTH = 10;
 
-    private float headX = -5.5f;
-    private float tailX = 5.5f;
+    private float leftOutline;
+    private float rightOutline;
 
-    private void Awake()
+    public float headX { get; private set; }
+    public float tailX { get; private set; }
+
+    private void Start()
     {
         Init();
     }
@@ -38,17 +39,25 @@ public class LoopGround : SerializedMonoBehaviour
 
     private void Init()
     {
-        for(int i = 0; i < GROUND_CNT; i++)
-        {
-            //¶¥ »ý¼º
-            GroundObj newGround = Instantiate(groundObj, createPos.transform.position + new Vector3(0, 0, groundDis) * i, Quaternion.identity, groundAni.transform);
-            newGround.gameObject.SetActive(true);
-            groundList.Add(newGround);
-        }
+        headX = -(GameSystem.Instance.objScale * (GROUND_WIDTH - 1))/2f;
+        tailX = -headX;
+        leftOutline = headX;
+        rightOutline = tailX;
 
         for (int i = 0; i < GROUND_WIDTH; i++)
             isBreak.Add(false);
+
+        for(int i = 0; i < GROUND_CNT; i++)
+        {
+            //¶¥ »ý¼º
+            GroundObj newGround = Instantiate(groundObj, createPos.transform.position + new Vector3(0, 0, GameSystem.Instance.objScale) * i, Quaternion.identity, groundAni.transform);
+            newGround.gameObject.SetActive(true);
+            newGround.Refresh(isBreak);
+            groundList.Add(newGround);
+        }
+
         groundAni.speed = groundSpeed;
+
     }
 
     public void BreakLeft()
@@ -59,7 +68,7 @@ public class LoopGround : SerializedMonoBehaviour
                 continue;
             isBreak[i] = true;
             ItemMng.Instance.RemoveAllItem(i);
-            headX++;
+            leftOutline += GameSystem.Instance.objScale;
             break;
         }
         for (int i = 0; i < groundList.Count; i++)
@@ -77,7 +86,7 @@ public class LoopGround : SerializedMonoBehaviour
             isBreak[i] = true;
             ItemMng.Instance.RemoveAllItem(i);
 
-            tailX--;
+            rightOutline -= GameSystem.Instance.objScale;
             break;
         }
         for (int i = 0; i < groundList.Count; i++)
@@ -88,18 +97,18 @@ public class LoopGround : SerializedMonoBehaviour
 
     public bool IsCanMove(Vector3 pos)
     {
-        if (pos.x <= headX + edgeWidth)
+        if (pos.x <= leftOutline + edgeWidth)
             return false;
-        if (pos.x >= tailX - edgeWidth)
+        if (pos.x >= rightOutline - edgeWidth)
             return false;
         return true;
     }
 
     public bool IsDie(Vector3 pos)
     {
-        if (pos.x <= headX + edgeWidth)
+        if (pos.x <= leftOutline + edgeWidth)
             return true;
-        if (pos.x >= tailX - edgeWidth)
+        if (pos.x >= rightOutline - edgeWidth)
             return true;
         return false;
     }
