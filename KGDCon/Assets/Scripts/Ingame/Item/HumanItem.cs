@@ -23,6 +23,7 @@ public class HumanItem : GameItem
         if (uIPlayerBoard.IsGameover)
         {
             Canvas.Instance.Get<UIGameoverPopup>().Bind(uIPlayerBoard.Score);
+            GameSystem.Instance.GameOver();
         }
     }
 }

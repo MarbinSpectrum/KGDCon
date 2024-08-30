@@ -14,6 +14,14 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
     [SerializeField] private GameObject iceBreak;
     private bool isDie = false;
 
+    private Vector3 startPos;
+
+    private void Start()
+    {
+        startPos = transform.position;
+        gameObject.SetActive(false);
+    }
+
     private void Update()
     {
         GameSystem gameSystem = GameSystem.Instance;
@@ -23,7 +31,6 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
             return;
         MoveUpdate();
         DieCheckUpdate();
-        ItemCheckUpdate();
     }
 
     private void MoveUpdate()
@@ -46,31 +53,8 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
             UIPlayerBoard uIPlayerBoard = Canvas.Instance.Get<UIPlayerBoard>();
 
             uIGameoverPopup.Bind(uIPlayerBoard.Score);
-        }
-    }
 
-    public void ItemCheckUpdate()
-    {
-        ItemMng itemMng = ItemMng.Instance;
-        for(int i = 0; i < itemMng.gameItem.Count; i++)
-        {
-            GameItem gameItem = itemMng.gameItem[i];
-            if (gameItem.isDie)
-                continue;
-            if (gameItem.hit)
-                continue;
-            if (gameItem.eItem == EItem.Holl_2)
-            {
-                if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis || 
-                    Vector3.Distance(transform.position, gameItem.transform.position + new Vector3(1, 0, 0)) < checkDis)
-                {
-                    gameItem.GetItem();
-                }
-            }
-            else if (Vector3.Distance(transform.position, gameItem.transform.position) < checkDis)
-            {
-                gameItem.GetItem();
-            }
+            GameSystem.Instance.GameOver();
         }
     }
 
@@ -94,6 +78,19 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
         }
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        GameItem gameItem = other.GetComponent<GameItem>();
+        if (gameItem == null)
+            return;
+        if (gameItem.isDie)
+            return;
+        if (gameItem.hit)
+            return;
+
+        gameItem.GetItem();
+    }
+
     public void IceBreakEvent()
     {
         IEnumerator run()
@@ -103,6 +100,16 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
             iceBreak.gameObject.SetActive(false);
         }
         StartCoroutine(run());
+    }
+
+    public void Init()
+    {
+        transform.position = startPos;
+        simpleColor.Set_Shader(0);
+        iceBreak.gameObject.SetActive(false);
+        isDie = false;
+
+        gameObject.SetActive(true);
     }
 }
 

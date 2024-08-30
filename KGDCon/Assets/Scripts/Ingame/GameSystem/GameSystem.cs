@@ -199,4 +199,26 @@ public class GameSystem : SingletonBehaviour<GameSystem>
         humanPointFlag += score;
         hearthPointFlag += score;
     }
+
+    public void GameOver()
+    {
+        run = false;
+        LoopGround.Instance.StopLoop();
+        PlayerUnit.Instance.gameObject.SetActive(false);
+        ItemMng.Instance.RemoveAllItem();
+    }
+
+    public void StartGame()
+    {
+        time = 0;
+        humanPointFlag = 0;
+        hearthPointFlag = 0;
+        groundFlag = false;
+        PlayerUnit.Instance.Init();
+        LoopGround.Instance.Init();
+        Sky.Instance.UpdateSky();
+        ItemMng.Instance.RemoveAllItem();
+        EffMng.Instance.RemoveAllItem();
+        run = true;
+    }
 }

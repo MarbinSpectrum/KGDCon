@@ -17,7 +17,7 @@ public class UIStartPopup : UI
             Sfx.Instance.PlayButtonClick();
             Hide();
             Time.timeScale = 1f;
-            GameSystem.Instance.run = true;
+            GameSystem.Instance.StartGame();
         });
 
         _exitButton.onClick.AddListener(() =>

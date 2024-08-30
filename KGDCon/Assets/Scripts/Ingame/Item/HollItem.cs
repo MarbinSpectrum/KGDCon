@@ -21,6 +21,7 @@ public class HollItem : GameItem
         if (uIPlayerBoard.IsGameover)
         {
             Canvas.Instance.Get<UIGameoverPopup>().Bind(uIPlayerBoard.Score);
+            GameSystem.Instance.GameOver();
         }
     }
 }

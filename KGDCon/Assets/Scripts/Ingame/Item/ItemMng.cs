@@ -25,12 +25,14 @@ public class ItemMng : SerializedMonoBehaviour
 
         if(itemQueue[pItem].Count > 0)
         {
-            return itemQueue[pItem].Dequeue();
+            GameItem item = itemQueue[pItem].Dequeue();
+            item.gameObject.SetActive(true);
+            return item;
         }
 
         GameItem newItem = Instantiate(item[pItem]);
+        newItem.gameObject.SetActive(true);
         gameItem.Add(newItem);
-
         return newItem;
     }
 
@@ -51,5 +53,11 @@ public class ItemMng : SerializedMonoBehaviour
             else if (gameItem[i].pos == pos)
                 gameItem[i].DestroyObj();
         }
+    }
+
+    public void RemoveAllItem()
+    {
+        for (int i = 0; i < gameItem.Count; i++)
+            gameItem[i].DestroyObj();
     }
 }

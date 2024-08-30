@@ -31,34 +31,35 @@ public class LoopGround : SingletonBehaviour<LoopGround>
     public float headX { get; private set; }
     public float tailX { get; private set; }
 
-    private void Start()
-    {
-        Init();
-    }
-
-
-    private void Init()
+    public void Init()
     {
         headX = -(GameSystem.Instance.objScale * (GROUND_WIDTH - 1))/2f;
         tailX = -headX;
         leftOutline = headX;
         rightOutline = tailX;
 
+        isBreak.Clear();
         for (int i = 0; i < GROUND_WIDTH; i++)
             isBreak.Add(false);
 
-        for(int i = 0; i < GROUND_CNT; i++)
+        while (groundList.Count < GROUND_CNT)
         {
             //¶¥ »ý¼º
-            GroundObj newGround = Instantiate(groundObj, createPos.transform.position + new Vector3(0, 0, GameSystem.Instance.objScale) * i, Quaternion.identity, groundAni.transform);
+            GroundObj newGround = Instantiate(groundObj, createPos.transform.position + new Vector3(0, 0, GameSystem.Instance.objScale) * groundList.Count, Quaternion.identity, groundAni.transform);
             newGround.gameObject.SetActive(true);
             newGround.Refresh(isBreak);
             groundList.Add(newGround);
         }
 
-        groundAni.speed = groundSpeed;
+        for(int i = 0; i < groundList.Count; i++)
+        {
+            groundList[i].Refresh(isBreak);
+        }
 
+        PlayLoop();
     }
+
+
 
     public void BreakLeft()
     {
@@ -112,5 +113,16 @@ public class LoopGround : SingletonBehaviour<LoopGround>
             return true;
         return false;
     }
+
+    public void StopLoop()
+    {
+        groundAni.speed = 0;
+    }
+
+    public void PlayLoop()
+    {
+        groundAni.speed = groundSpeed;
+    }
+
 
 }

@@ -15,7 +15,10 @@ public class UIGameoverPopup : UI
         {
             Sfx.Instance.PlayButtonClick();
             Canvas.Instance.Get<UIStartPopup>().Bind();
+            Time.timeScale = 1f;
             Hide();
+
+            GameSystem.Instance.StartGame();
         }
     }
 
