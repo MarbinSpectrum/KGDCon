@@ -1973,7 +1973,6 @@ MonoBehaviour:
   _bestScoreText: {fileID: 7897474327213738255}
   _scoreText: {fileID: 7897474325827789331}
   _pressAnyKeyText: {fileID: 7897474326977404240}
-  _canvasGroup: {fileID: 7897474326238203464}
 --- !u!225 &7897474326238203464
 CanvasGroup:
   m_ObjectHideFlags: 0

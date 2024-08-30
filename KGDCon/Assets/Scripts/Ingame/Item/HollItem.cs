@@ -10,6 +10,7 @@ public class HollItem : GameItem
             return;
         hit = true;
 
+        Sfx.Instance.Play(ESfx.OnFallIntoHole);
         UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
         if (uIPlayerBoard == null)
             return;

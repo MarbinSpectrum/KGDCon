@@ -19,16 +19,23 @@ public class UIStartPopup : SingletonBehaviour<UIStartPopup>
 
         _startButton.onClick.AddListener(() =>
         {
+            Sfx.Instance.PlayButtonClick();
             gameObject.SetActive(false);
             Time.timeScale = 1f;
             GameSystem.Instance.run = true;
         });
-        _exitButton.onClick.AddListener(() => Application.Quit());
+
+        _exitButton.onClick.AddListener(() =>
+        {
+            Sfx.Instance.PlayButtonClick();
+            Application.Quit();
+        });
     }
 
     private void Start()
     {
         Bind();
+        Bgm.Instance.Play(EBgm.MainBgm);
     }
 
     public void Bind()

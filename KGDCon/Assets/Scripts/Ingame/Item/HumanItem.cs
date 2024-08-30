@@ -10,6 +10,7 @@ public class HumanItem : GameItem
             return;
         hit = true;
 
+        Sfx.Instance.Play(ESfx.HitHuman);
         DestroyObj();
 
         UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;

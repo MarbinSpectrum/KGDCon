@@ -33,6 +33,18 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    private void Update()
+    {
+        var bgm = Bgm.Instance;
+
+        if (IsGameover)
+            bgm.Stop();
+        else if (LifeCount <= 1)
+            bgm.Play(EBgm.DangerBgm);
+        else
+            bgm.Play(EBgm.MainBgm);
+    }
+
     public void Initialize()
     {
         Score = 0;

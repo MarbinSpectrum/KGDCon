@@ -1,4 +1,4 @@
-public enum Bgm
+public enum EBgm
 {
 	DangerBgm,
 	MainBgm,

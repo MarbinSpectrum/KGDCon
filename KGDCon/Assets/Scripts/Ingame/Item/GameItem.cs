@@ -32,6 +32,7 @@ public class GameItem : SerializedMonoBehaviour
             return;
         hit = true;
         DestroyObj();
+        Sfx.Instance.Play(ESfx.GetItem);
     }
 
     protected virtual void MoveDown()

@@ -162,6 +162,7 @@ public class GameSystem : SingletonBehaviour<GameSystem>
 
     public void RemoveGround()
     {
+        Sfx.Instance.Play(ESfx.OnRemoveGround);
         if (groundFlag)
             loopGround.BreakRight();
         else

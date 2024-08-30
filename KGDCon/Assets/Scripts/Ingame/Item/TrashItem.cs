@@ -24,6 +24,7 @@ public class TrashItem : GameItem
             return;
         hit = true;
 
+        Sfx.Instance.Play(ESfx.GetTrash);
         DestroyObj();
 
         GameSystem gameSystem = GameSystem.Instance;

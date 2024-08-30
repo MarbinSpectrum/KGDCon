@@ -11,6 +11,7 @@ public class HearthItem : GameItem
         hit = true;
 
         DestroyObj();
+        Sfx.Instance.Play(ESfx.GetItem);
 
         UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
         if (uIPlayerBoard == null)

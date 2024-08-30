@@ -30,11 +30,11 @@ public class GenerateBgmSfxNameEnums : Editor
             StringBuilder bgmScript = new();
             StringBuilder sfxScript = new();
 
-            bgmScript.AppendLine("public enum Bgm")
+            bgmScript.AppendLine("public enum EBgm")
                 .AppendLine("{")
                 .Append(bgmEnums)
                 .AppendLine("}");
-            sfxScript.AppendLine("public enum Sfx")
+            sfxScript.AppendLine("public enum ESfx")
                 .AppendLine("{")
                 .Append(sfxEnums)
                 .AppendLine("}");

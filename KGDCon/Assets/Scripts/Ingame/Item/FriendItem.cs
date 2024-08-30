@@ -14,6 +14,7 @@ public class FriendItem : GameItem
 
         DestroyObj();
 
+        Sfx.Instance.Play(ESfx.GetItem);
         GameSystem.Instance.AddScore(score);
     }
 }
