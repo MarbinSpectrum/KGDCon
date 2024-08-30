@@ -43,7 +43,7 @@ public class PlayerUnit : SingletonBehaviour<PlayerUnit>
         if (loopGround.IsDie(transform.position))
         {
             isDie = true;
-            UIGameoverPopup uIGameoverPopup = UIGameoverPopup.Instance;
+            UIGameoverPopup uIGameoverPopup = Canvas.Instance.Get<UIGameoverPopup>();
             uIGameoverPopup.Bind(0);
         }
     }

@@ -13,7 +13,7 @@ public class HearthItem : GameItem
         DestroyObj();
         Sfx.Instance.Play(ESfx.GetItem);
 
-        UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
+        UIPlayerBoard uIPlayerBoard = Canvas.Instance.Get<UIPlayerBoard>();
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.IncreaseHalfLife();

@@ -13,7 +13,7 @@ public class HumanItem : GameItem
         Sfx.Instance.Play(ESfx.HitHuman);
         DestroyObj();
 
-        UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
+        UIPlayerBoard uIPlayerBoard = Canvas.Instance.Get<UIPlayerBoard>();
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.DecreaseLife();
@@ -21,7 +21,7 @@ public class HumanItem : GameItem
         Sky.Instance.UpdateSky();
         if (uIPlayerBoard.IsGameover)
         {
-            UIGameoverPopup.Instance.Bind(uIPlayerBoard.Score);
+            Canvas.Instance.Get<UIGameoverPopup>().Bind(uIPlayerBoard.Score);
         }
     }
 }

@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIStartPopup : SingletonBehaviour<UIStartPopup>
+public class UIStartPopup : UI
 {
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _exitButton;
-    private CanvasGroup _canvasGroup;
 
-    protected override void Awake()
+    private void Awake()
     {
         Time.timeScale = 0f;
-
-        base.Awake();
-
-        _canvasGroup = GetComponent<CanvasGroup>();
 
         _startButton.onClick.AddListener(() =>
         {
             Sfx.Instance.PlayButtonClick();
-            gameObject.SetActive(false);
+            Hide();
             Time.timeScale = 1f;
             GameSystem.Instance.run = true;
         });
@@ -41,9 +36,6 @@ public class UIStartPopup : SingletonBehaviour<UIStartPopup>
     public void Bind()
     {
         Time.timeScale = 0f;
-        UIPlayerBoard.Instance.Initialize();
+        Canvas.Instance.Get<UIPlayerBoard>().Initialize();
     }
-
-    public void Show() => _canvasGroup.alpha = 1.0f;
-    public void Hide() => _canvasGroup.alpha = 0f;
 }

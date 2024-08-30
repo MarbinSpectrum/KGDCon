@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
+public class UIPlayerBoard : UI
 {
     public int Score
     {
@@ -21,17 +21,9 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
 
     [SerializeField] private Text _scoreText;
     [SerializeField] private Image[] _lives;
-    private CanvasGroup _canvasGroup;
 
     private int _score;
     private int _lifeIndex;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
 
     private void Update()
     {
@@ -76,7 +68,4 @@ public class UIPlayerBoard : SingletonBehaviour<UIPlayerBoard>
             return;
         _lives[_lifeIndex++ / 2].fillAmount -= 0.5f;
     }
-
-    public void Show() => _canvasGroup.alpha = 1.0f;
-    public void Hide() => _canvasGroup.alpha = 0f;
 }

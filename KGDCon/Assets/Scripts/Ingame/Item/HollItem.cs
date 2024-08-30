@@ -11,7 +11,7 @@ public class HollItem : GameItem
         hit = true;
 
         Sfx.Instance.Play(ESfx.OnFallIntoHole);
-        UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
+        UIPlayerBoard uIPlayerBoard = Canvas.Instance.Get<UIPlayerBoard>();
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.DecreaseHalfLife();
@@ -19,7 +19,7 @@ public class HollItem : GameItem
         Sky.Instance.UpdateSky();
         if (uIPlayerBoard.IsGameover)
         {
-            UIGameoverPopup.Instance.Bind(uIPlayerBoard.Score);
+            Canvas.Instance.Get<UIGameoverPopup>().Bind(uIPlayerBoard.Score);
         }
     }
 }

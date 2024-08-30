@@ -117,7 +117,7 @@ public class GameSystem : SingletonBehaviour<GameSystem>
                 }
                 break;
             case EItem.Hearth:
-                if (hearthPointFlag >= hearthPoint && UIPlayerBoard.Instance.IsFullLife == false)
+                if (hearthPointFlag >= hearthPoint && Canvas.Instance.Get<UIPlayerBoard>().IsFullLife == false)
                 {
                     hearthPointFlag = 0;
                     return true;
@@ -172,7 +172,7 @@ public class GameSystem : SingletonBehaviour<GameSystem>
 
     public void AddScore(int score)
     {
-        UIPlayerBoard uIPlayerBoard = UIPlayerBoard.Instance;
+        UIPlayerBoard uIPlayerBoard = Canvas.Instance.Get<UIPlayerBoard>();
         if (uIPlayerBoard == null)
             return;
         uIPlayerBoard.Score += score;

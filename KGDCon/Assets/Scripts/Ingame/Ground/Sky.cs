@@ -11,11 +11,13 @@ public class Sky : SingletonBehaviour<Sky>
 
     public void UpdateSky()
     {
-        if (UIPlayerBoard.Instance.LifeCount <= 1)
+        var UIPlayerBoard = Canvas.Instance.Get<UIPlayerBoard>();
+
+        if (UIPlayerBoard.LifeCount <= 1)
         {
             spriteRenderer.sprite = sky2;
         }
-        else if (UIPlayerBoard.Instance.LifeCount <= 2)
+        else if (UIPlayerBoard.LifeCount <= 2)
         {
             spriteRenderer.sprite = sky1;
         }
