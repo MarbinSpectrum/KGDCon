@@ -16,5 +16,7 @@ public class FriendItem : GameItem
 
         Sfx.Instance.Play(ESfx.GetItem);
         GameSystem.Instance.AddScore(score);
+        EffScripts eff = EffMng.Instance.CreateItem(EEffect.Friend);
+        eff.transform.position = PlayerUnit.Instance.transform.position + new Vector3(0, 0.6f, 0);
     }
 }

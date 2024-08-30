@@ -23,3 +23,9 @@ public enum ESky
     Sky1,
     Sky2,
 }
+
+public enum EEffect
+{
+    Friend,
+    Hearth,
+}

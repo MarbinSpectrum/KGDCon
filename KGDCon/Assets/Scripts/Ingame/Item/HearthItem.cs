@@ -18,5 +18,8 @@ public class HearthItem : GameItem
             return;
         uIPlayerBoard.IncreaseHalfLife();
         Sky.Instance.UpdateSky();
+
+        EffScripts eff = EffMng.Instance.CreateItem(EEffect.Hearth);
+        eff.transform.position = PlayerUnit.Instance.transform.position + new Vector3(0, 0.6f, 0);
     }
 }
